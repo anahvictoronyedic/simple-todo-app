@@ -1,0 +1,7 @@
+<ion-item >
+  <ion-label class="title-color">{{todo.title}}</ion-label>
+  <span
+    [ngClass]="todo.status === TODO_STATUS.COMPLETED ? 'completed-color' : 'inprogress-color'"
+    title="status">{{ todo.status === TODO_STATUS.COMPLETED ? 'Completed' : 'In progress'}}
+  </span>
+</ion-item>

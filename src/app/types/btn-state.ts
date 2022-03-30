@@ -1,0 +1,7 @@
+
+export enum BUTTON_STATE {
+  LOADED =  1,
+  LOADING,
+  LOADED_AND_DELAYING,
+  ERROR
+};

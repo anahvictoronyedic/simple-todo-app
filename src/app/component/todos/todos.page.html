@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Todo list App</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    
+  <!-- All Todo Lists -->
+  <ion-list *ngFor="let todo of todos">
+    <app-todo [todo]="todo"></app-todo>
+  </ion-list>
+
+  <app-todo-button
+    (stateChange)="onStateChange($event)"
+  ></app-todo-button>
+</ion-content>
