@@ -15,24 +15,24 @@ export class TodosService {
   constructor(private http: HttpClient) {}
 
   getTodos(): Observable<TODO[]> {
+
     return this.http.get<any[]>(this.TODOS_URL).pipe(
       switchMap((todos) => {
         const epochMillis = Date.now();
 
+        // extract the last digit
         const lastDigit = epochMillis % 10;
 
-        console.log(
-          `TodosService.getTodos() timeNow , lastDigit : ${epochMillis} , ${lastDigit}`
-        );
-
+        // check if not prime
         if (!this.isPrime(lastDigit)) {
           return of(todos);
         }
 
-        const errMsg = `TodosService.getTodos() time should not be prime : ${epochMillis}`;
+        const errMsg = `TodosService.getTodos() : the last digit of current epoch time in milliseconds should not be prime : ${epochMillis}`;
 
         console.log(errMsg);
 
+        // return failure to user
         return throwError(errMsg);
       }),
       map((todos) =>
@@ -41,7 +41,11 @@ export class TodosService {
     );
   }
 
-  private isPrime(n: number) {
+  /**
+   * @param n the number to check
+   * @returns is boolean that indicates if the number is prime
+   */
+  private isPrime(n: number) :boolean{
     if( n < 2 ) return false;
     for (let i = 2; i < n; i++) {
       if (n % i == 0) return false;
@@ -49,6 +53,13 @@ export class TodosService {
     return true;
   }
 
+  /**
+   * will be used to carry out todo data normalization which means converting the data returned from the API to a data structure format 
+   * used through out the application.
+   * 
+   * @param todo the unnormalized todo object
+   * @returns the normalized todo object
+   */
   private hydrateTodo(todo: any): TODO {
     return {
       title: todo.title,

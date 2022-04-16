@@ -11,9 +11,8 @@ import { TodoButtonComponent } from '../todo-button/todo-button.component';
 })
 export class TodosPage implements OnInit {
 
+  // the todos to display
   todos: TODO[];
-
-  buttonState: BUTTON_STATE;
 
   @ViewChild(TodoButtonComponent,{static:true})
   private TodoButton : TodoButtonComponent;
@@ -22,15 +21,23 @@ export class TodosPage implements OnInit {
 
   ngOnInit(){}
 
+  /**
+   * called when the button state changes
+   * @param state 
+   */
   onStateChange(state: BUTTON_STATE) {
 
+    // if the emitted state is looading, load the todos from the service
     if( state == BUTTON_STATE.LOADING ) {
 
+      // clear the list of todos in UI
       this.todos = [];
 
+      // fetch the todos
       this.todoService.getTodos().subscribe(
         (todos) => {
           this.todos = todos;
+
           this.setButtonState(BUTTON_STATE.LOADED_AND_DELAYING);
         },
         () => {

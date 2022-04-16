@@ -11,6 +11,7 @@
     <app-todo [todo]="todo"></app-todo>
   </ion-list>
 
+  <!-- Listen to the state change event -->
   <app-todo-button
     (stateChange)="onStateChange($event)"
   ></app-todo-button>
