@@ -22,7 +22,6 @@ export class TodoButtonComponent implements OnInit {
   // the button state
   private _state: BUTTON_STATE;
 
-  @Input()
   set state(state){
     this._state = state;
 
